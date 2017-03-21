@@ -42,12 +42,19 @@ describe Oystercard do
     end
   end
 
-  describe '#touch_off' do
+  describe '#touch_out' do
     it 'can touch out' do
       subject.top_up(5)
       subject.touch_in
       subject.touch_out
       expect(subject).not_to be_in_journey
+    end
+
+    it 'deducts minimum fare' do
+      subject.top_up(5)
+      subject.touch_in
+      subject.touch_out
+      expect {subject.deduct_money(1)}.to change{subject.balance}.by(-1)
     end
   end
 end
