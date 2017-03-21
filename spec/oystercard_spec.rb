@@ -31,13 +31,20 @@ describe Oystercard do
 
   describe '#touch_in' do
     it 'can touch in' do
+      subject.top_up(5)
       subject.touch_in
       expect(subject.in_journey).to be true
+    end
+
+    it 'checks minimum balance on touch in' do
+      message = "Minimum £1 needed to touch in"
+      expect{ subject.touch_in }.to raise_error message
     end
   end
 
   describe '#touch_off' do
     it 'can touch out' do
+      subject.top_up(5)
       subject.touch_in
       subject.touch_out
       expect(subject).not_to be_in_journey
