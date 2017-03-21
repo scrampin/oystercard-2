@@ -2,6 +2,8 @@ require 'oystercard'
 
 describe Oystercard do
 
+  let(:journey) { Journey.new }
+
   it 'has a balance of 0' do
     expect(subject.balance).to eq 0
   end
@@ -21,4 +23,24 @@ describe Oystercard do
     expect{subject.deduct_money(5)}.to change{subject.balance}.by -5
   end
 
+  describe '#in_journey?' do
+    it 'is initially not in a journey' do
+      expect(subject.in_journey).to be false
+    end
+  end
+
+  describe '#touch_in' do
+    it 'can touch in' do
+      subject.touch_in
+      expect(subject.in_journey).to be true
+    end
+  end
+
+  describe '#touch_off' do
+    it 'can touch out' do
+      subject.touch_in
+      subject.touch_out
+      expect(subject).not_to be_in_journey
+    end
+  end
 end
