@@ -16,10 +16,6 @@ class Oystercard
     self.balance += money
   end
 
-  def deduct_money(money)
-    self.balance -= money
-  end
-
   def touch_in
     fail "Minimum £1 needed to touch in" if balance < MINIMUM_BALANCE
     self.in_journey = true
@@ -37,5 +33,9 @@ class Oystercard
   private
 
   attr_writer :balance, :in_journey
+
+  def deduct_money(money)
+    self.balance -= money
+  end
 
 end
