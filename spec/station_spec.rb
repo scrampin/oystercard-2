@@ -6,7 +6,7 @@ describe Station do
 
   describe '#initialize' do
     it 'returns a number when given a correct station' do
-      expect(station.name).to eq 1
+      expect(station.zone).to eq 1
     end
   end
 
