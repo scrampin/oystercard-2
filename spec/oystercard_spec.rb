@@ -3,6 +3,7 @@ require 'oystercard'
 describe Oystercard do
 
   let(:journey) { Journey.new }
+  let(:station) {double :station}
 
   it 'has a balance of 0' do
     expect(subject.balance).to eq 0
@@ -27,20 +28,27 @@ describe Oystercard do
   describe '#touch_in' do
     it 'can touch in' do
       subject.top_up(5)
-      subject.touch_in
+      subject.touch_in(station)
       expect(subject.in_journey).to be true
     end
 
-    it 'checks minimum balance on touch in' do
+    it 'checks minimum balance' do
       message = "Minimum £1 needed to touch in"
-      expect{ subject.touch_in }.to raise_error message
+      expect{ subject.touch_in(station) }.to raise_error message
     end
+
+    it 'records the entry station' do
+      subject.top_up(5)
+      subject.touch_in(station)
+      expect(subject.entry_station).to eq station
+    end
+
   end
 
   describe '#touch_out' do
     before do
       subject.top_up(5)
-      subject.touch_in
+      subject.touch_in(station)
     end
     it 'can touch out' do
       subject.touch_out
