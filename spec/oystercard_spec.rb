@@ -5,8 +5,14 @@ describe Oystercard do
   let(:journey) { Journey.new }
   let(:station) {double :station}
 
-  it 'has a balance of 0' do
-    expect(subject.balance).to eq 0
+  describe '#initialize' do
+    it 'has a balance of 0' do
+      expect(subject.balance).to eq 0
+    end
+
+    it 'has an empty journey history' do
+      expect(subject.journeys).to eq []
+    end
   end
 
   it 'adds money to the balance' do
@@ -26,10 +32,20 @@ describe Oystercard do
   end
 
   describe '#touch_in' do
-    it 'can touch in' do
-      subject.top_up(5)
-      subject.touch_in(station)
-      expect(subject).to be_in_journey
+
+    context 'success cases' do
+      before do
+        subject.top_up(5)
+        subject.touch_in(station)
+      end
+
+      it 'can touch in' do
+        expect(subject).to be_in_journey
+      end
+
+      it 'records the entry station' do
+        expect(subject.entry_station).to eq station
+      end
     end
 
     it 'checks minimum balance' do
@@ -37,31 +53,31 @@ describe Oystercard do
       expect{ subject.touch_in(station) }.to raise_error message
     end
 
-    it 'records the entry station' do
-      subject.top_up(5)
-      subject.touch_in(station)
-      expect(subject.entry_station).to eq station
-    end
-
   end
 
   describe '#touch_out' do
-    before do
-      subject.top_up(5)
-      subject.touch_in(station)
-    end
-    it 'can touch out' do
-      subject.touch_out
-      expect(subject).not_to be_in_journey
+
+    context 'verifying entry and exit data' do
+      before do
+        subject.top_up(5)
+        subject.touch_in(station)
+        subject.touch_out(station)
+      end
+      it 'can touch out' do
+        expect(subject).not_to be_in_journey
+      end
+
+      it 'resets entry station to nil' do
+        expect(subject.entry_station).to be_nil
+      end
+
+      it 'records the exit station' do
+        expect(subject.journeys).to include({station => station})
+      end
     end
 
     it 'deducts minimum fare' do
-      expect {subject.touch_out}.to change{subject.balance}.by(-1)
-    end
-
-    it 'resets entry station to nil' do
-      subject.touch_out
-      expect(subject.entry_station).to be_nil
+      expect {subject.touch_out(station)}.to change{subject.balance}.by(-1)
     end
 
   end
