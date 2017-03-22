@@ -21,7 +21,7 @@ describe Oystercard do
 
   describe '#in_journey?' do
     it 'is initially not in a journey' do
-      expect(subject.in_journey).to be false
+      expect(subject).not_to be_in_journey
     end
   end
 
@@ -29,7 +29,7 @@ describe Oystercard do
     it 'can touch in' do
       subject.top_up(5)
       subject.touch_in(station)
-      expect(subject.in_journey).to be true
+      expect(subject).to be_in_journey
     end
 
     it 'checks minimum balance' do
@@ -58,5 +58,11 @@ describe Oystercard do
     it 'deducts minimum fare' do
       expect {subject.touch_out}.to change{subject.balance}.by(-1)
     end
+
+    it 'resets entry station to nil' do
+      subject.touch_out
+      expect(subject.entry_station).to be_nil
+    end
+
   end
 end
