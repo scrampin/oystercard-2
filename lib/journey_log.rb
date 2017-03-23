@@ -1,10 +1,11 @@
 require_relative 'journey'
 
 class JourneyLog
-  attr_reader :journey_class, :journey
+  attr_reader :journey_class, :journey, :journeys
 
   def initialize(journey = Journey)
     @journey_class = journey
+    @journeys = []
   end
 
   def begin(station)
@@ -13,11 +14,16 @@ class JourneyLog
   end
 
   def end(station)
-    journey.finish(station)
+    trip = journey.finish(station)
+    journeys << trip
+    self.journey = nil
+    trip
   end
 
 
   private
+
+  attr_writer :journey
 
   def current_journey
     return journey_class.new if journey.nil?
