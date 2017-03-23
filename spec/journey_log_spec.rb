@@ -23,6 +23,10 @@ describe JourneyLog do
       journey_log.begin(station)
       expect(journey_log.current_journey).to eq journey_log.journey
     end
+
+    it 'creates a new journey if none already exists' do
+      expect(journey_log.current_journey).to eq journey_class.new
+    end
   end
 
 
