@@ -12,12 +12,12 @@ class JourneyLog
     @journey.start(station)
   end
 
-  def current_journey
-    journey
-  end
 
   private
 
-
+  def current_journey
+    return journey_class.new if journey.nil?
+    journey
+  end
 
 end
