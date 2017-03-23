@@ -19,6 +19,12 @@ describe Journey do
       journey.finish(finish_station)
       expect(journey.entry_station).to be_nil
     end
+
+    it 'outputs journey data' do
+      journey.start(start_station)
+      expect(journey.finish(finish_station)).to eq ({start_station => finish_station})
+    end
+
   end
 
 end
