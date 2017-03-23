@@ -2,7 +2,7 @@ require 'station'
 
 describe Station do
 
-  subject(:station) {described_class.new('Holborn')}
+  subject(:station) {described_class.new('Holborn', 1)}
 
   describe '#initialize' do
     it 'returns a number when given a correct station' do
