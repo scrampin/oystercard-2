@@ -11,9 +11,17 @@ describe JourneyLog do
     end
   end
 
-  describe '#start' do
+  describe '#begin' do
     it 'starts a new journey with an entry station' do
-      journey_log.start(station).to eq (journey_class.new.start(station))
+      journey_log.begin(station)
+      expect(journey_log.journey.entry_station).to eq station
+    end
+  end
+
+  describe '#current_journey' do
+    it 'returns an incomplete journey' do
+      journey_log.begin(station)
+      expect(journey_log.current_journey).to eq journey_log.journey
     end
   end
 
