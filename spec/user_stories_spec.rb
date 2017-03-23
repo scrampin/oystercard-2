@@ -17,3 +17,8 @@
 # In order to be correctly charged,
 # As a customer,
 # Return whether or not journey is complete?
+
+require './lib/journey'
+journey = Journey.new
+journey.start("Aldgate")
+trip = journey.finish("King's Cross")
