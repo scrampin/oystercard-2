@@ -24,6 +24,17 @@ describe JourneyLog do
       journey_log.begin(start_station)
       expect(journey_log.end(end_station)[start_station]).to eq end_station
     end
+
+
+  describe '#journeys' do
+    it 'returns an array of all previous journeys' do
+      3.times do
+        journey_log.begin(start_station)
+        journey_log.end(end_station)
+      end
+      expect(journey_log.journeys.count).to eq 3
+    end
   end
+end
 
 end

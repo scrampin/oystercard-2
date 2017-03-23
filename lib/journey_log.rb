@@ -12,6 +12,10 @@ class JourneyLog
     @journey.start(station)
   end
 
+  def end(station)
+    journey.finish(station)
+  end
+
 
   private
 
