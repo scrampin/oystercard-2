@@ -2,7 +2,6 @@ require 'oystercard'
 
 describe Oystercard do
 
-  let(:journey) { Journey.new }
   let(:station) {double :station}
 
   describe '#initialize' do
