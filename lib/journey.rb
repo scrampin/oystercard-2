@@ -10,14 +10,18 @@ def start(start_station)
 end
 
 def finish(finish_station)
-  journey = [entry_station, finish_station]
+  journey = {entry_station => finish_station}
   self.entry_station = nil
   journey
 end
 
 def fare(entry)
-  return PENALTY_FARE if entry.include?(nil)
+  return PENALTY_FARE if entry.all? {|k,v| k.nil? || v.nil?}
   MINIMUM_FARE
+end
+
+def is_complete?
+  entry_station.nil?
 end
 
 private

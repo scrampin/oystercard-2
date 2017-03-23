@@ -3,8 +3,8 @@ require 'journey'
 describe Journey do
 
   subject(:journey) {described_class.new}
-  let(:start_station) {double :station}
-  let(:finish_station) {double :station}
+  let(:start_station) {double :station, zone: 1}
+  let(:finish_station) {double :station, zone: 2}
 
   describe '#start' do
     it 'assigns an entry station' do
@@ -22,7 +22,7 @@ describe Journey do
 
     it 'outputs journey data' do
       journey.start(start_station)
-      expect(journey.finish(finish_station)).to eq ([start_station, finish_station])
+      expect(journey.finish(finish_station)).to eq ({start_station => finish_station})
     end
   end
 
@@ -43,7 +43,7 @@ describe Journey do
     it 'states whether the journey is completed' do
       journey.start(start_station)
       journey.finish(finish_station)
-      expect(journey.is_completed?).to be_true
+      expect(journey.is_complete?).to be true
     end
   end
 
