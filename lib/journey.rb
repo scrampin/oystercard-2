@@ -29,3 +29,16 @@ attr_writer :entry_station
 
 
 end
+
+
+# def initialize(journey_class = journey)
+# @journey_class = journey
+# end
+#
+# def start
+#   journey_class.new.start
+# end
+#
+# def current_journey
+# journey_class.new
+# end
