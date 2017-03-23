@@ -24,7 +24,14 @@ describe Journey do
       journey.start(start_station)
       expect(journey.finish(finish_station)).to eq ({start_station => finish_station})
     end
+  end
 
+  describe '#fare' do
+    it 'returns the minimum fare' do
+      journey.start(start_station)
+      journey.finish(finish_station)
+      expect(journey.fare).to eq Journey::MINIMUM_FARE
+    end
   end
 
 end

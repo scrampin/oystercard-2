@@ -3,12 +3,14 @@ class Journey
 attr_reader :entry_station
 
 
-def start(station)
-  self.entry_station = station
+def start(start_station)
+  self.entry_station = start_station
 end
 
-def finish(station)
+def finish(finish_station)
+  journey = {entry_station => finish_station}
   self.entry_station = nil
+  journey
 end
 
 private
