@@ -32,6 +32,12 @@ describe Journey do
       journey.finish(finish_station)
       expect(journey.fare).to eq Journey::MINIMUM_FARE
     end
+
+    it 'returns a penalty of 6 if no entry station' do
+      journey.finish(finish_station)
+      expect(journey.fare).to eq Journey::PENALTY_FARE
+    end
+
   end
 
 end
